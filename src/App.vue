@@ -1,10 +1,12 @@
 <script setup>
 import Header from "./common/header.vue";
-import Home from "./pages/home/home.vue";
+import Footer from "./common/footer.vue";
 </script>
 
-
 <template>
-   <Header />
-   <Home />
+  <Header />
+
+  <router-view />
+
+  <Footer />
 </template>
