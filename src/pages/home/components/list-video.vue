@@ -95,9 +95,9 @@ const modelList = ref([
     id: 1,
     name: 'Xe ben điều khiển',
     youtubeId: 'https://youtu.be/_tlHf2NREpA', // Định dạng link rút gọn di động
-    features: ['Điều khiển tiến / lùi', 'Đánh lái trái / phải', 'Nâng hạ thùng ben'],
+    features: ['Điều khiển tiến / lùi', 'Hệ thống tời cứu hộ', 'Hệ thống ben nâng hạ thùng hàng'],
     components: [
-      { id: 101, name: 'Động cơ DC 3-6V', quantity: 2, image: 'https://via.placeholder.com/50', shopeeUrl: 'https://shopee.vn' },
+      { id: 101, name: 'Motor 550', quantity: 2, image: 'https://via.placeholder.com/50', shopeeUrl: 'https://s.shopee.vn/5AqTTwya0M' },
       { id: 102, name: 'Hộp pin 3xAA', quantity: 1, image: 'https://via.placeholder.com/50', shopeeUrl: 'https://shopee.vn' },
       { id: 103, name: 'Công tác gạt', quantity: 1, image: 'https://via.placeholder.com/50', shopeeUrl: 'https://shopee.vn' },
       { id: 104, name: 'Bánh xe cao su', quantity: 6, image: 'https://via.placeholder.com/50', shopeeUrl: 'https://shopee.vn' },
