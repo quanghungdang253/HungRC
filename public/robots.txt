@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hung-rc.vercel.app/sitemap.xml
