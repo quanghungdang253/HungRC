@@ -1,58 +1,36 @@
 <template>
-  <footer class="w-full bg-[#031221] text-white">
+  <!-- Thay đổi nền tổng thể thành xám rất đậm (slate-950) -->
+  <footer class="w-full bg-slate-950 text-white">
     <div class="max-w-6xl mx-auto px-6 py-10 md:py-12">
+      <!-- Grid chia layout: 9 cột cho phần chữ và 3 cột cho phần hình ảnh -->
       <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
         
-        <div class="md:col-span-4 space-y-3 text-center md:text-left">
-          <h2 class="text-xl font-bold uppercase tracking-wider border-l-4 border-yellow-500 pl-3 inline-block md:block">
-            Liên hệ với mình
+        <!-- Phần thông tin giới thiệu (Chiếm 9 cột trên màn hình lớn) -->
+        <div class="md:col-span-9 space-y-3">
+          <!-- Thay đổi màu chữ Hùng RC thành xanh dương nhạt (sky-400) để nổi bật trên nền tối -->
+          <h2 class="text-xl font-bold uppercase tracking-wide text-sky-400">
+            Hùng RC
           </h2>
-          <p class="text-sm text-gray-300 font-medium leading-relaxed max-w-sm mx-auto md:mx-0">
-            Hỗ trợ lắp ráp mô hình theo yêu cầu<br class="hidden sm:inline"/>
-            giải đáp thắc mắc, tư vấn linh kiện
+          <!-- Thay đổi màu chữ mô tả thành xám nhạt (slate-300) -->
+          <p class="text-slate-300 leading-relaxed text-sm max-w-3xl">
+            Không gian chia sẻ đam mê chế tạo, lắp ráp mô hình điều khiển từ xa (RC) cùng các sản phẩm công nghệ, công cụ hữu ích cho cuộc sống. Chúng tôi mang đến những kiến thức kỹ thuật thực tế và thông tin sản phẩm chất lượng giúp bạn tối ưu hóa mô hình của mình.
+          </p>
+
+          <!-- Thêm lời cảm ơn chân thành đến người xem/khách hàng -->
+          <p class="text-emerald-400 text-xs italic font-medium pt-1">
+            * Cảm ơn bạn đã ghé thăm và đồng hành cùng Hùng RC trên hành trình sáng tạo này!
           </p>
         </div>
 
-        <div class="md:col-span-5 flex flex-col sm:flex-row justify-center items-center gap-4">
-          <a 
-            :href="`https://zalo.me/${contactInfo.zaloPhone}`" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="w-full sm:w-auto min-w-[200px] flex items-center gap-3 bg-[#2f82fb] hover:bg-[#1a6edb] text-white p-3 rounded-xl transition-all duration-200 shadow-md group"
-          >
-            <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center flex-shrink-0 text-[#2f82fb] font-bold text-lg group-hover:scale-105 transition-transform">
-              Zalo
-            </div>
-            <div class="flex flex-col items-start">
-              <span class="text-sm font-bold">Liên hệ Zalo</span>
-              <span class="text-xs text-blue-a100"> 0388985737 </span>
-            </div>
-          </a>
-
-          <a 
-            :href="contactInfo.facebookUrl" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="w-full sm:w-auto min-w-[200px] flex items-center gap-3 bg-[#2d529f] hover:bg-[#1e3d7a] text-white p-3 rounded-xl transition-all duration-200 shadow-md group"
-          >
-            <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center flex-shrink-0 text-[#2d529f] group-hover:scale-105 transition-transform">
-              <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/>
-              </svg>
-            </div>
-            <div class="flex flex-col items-start">
-              <span class="text-sm font-bold">Facebook</span>
-              <span class="text-xs text-blue-100">{{ contactInfo.facebookDisplay }}</span>
-            </div>
-          </a>
-        </div>
-
+        <!-- Phần hình ảnh trang trí (Chiếm 3 cột trên màn hình lớn, ẩn trên mobile) -->
         <div class="md:col-span-3 hidden md:flex justify-end">
-          <div class="relative w-full max-w-[220px] aspect-[16/10] overflow-hidden rounded-lg shadow-sm border border-gray-800">
+          <!-- Thay đổi màu border khung ảnh thành xám nhẹ hơn (slate-700) -->
+          <div class="relative w-full max-w-[220px] aspect-[16/10] overflow-hidden rounded-lg shadow-md border border-slate-700 bg-slate-900/50 p-1">
             <img 
-              :src="contactInfo.decorImage" 
-              alt="Mô hình trang trí" 
-              class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-300"
+              :src="img" 
+              alt="DIY Model" 
+              class="w-full h-full object-contain hover:scale-105 transition duration-500"
+              @error="handleImageError"
             />
           </div>
         </div>
@@ -60,24 +38,28 @@
       </div>
     </div>
 
-    <div class="w-full bg-[#020b14] py-4 border-t border-gray-900 text-center text-xs text-gray-400 font-medium tracking-wide">
-      © {{ currentYear }} DIY Model – Chia sẻ đam mê, kết nối sáng tạo!
+    <!-- Thanh Bản quyền dưới cùng: Màu nền đen tuyền (black), chữ xám (slate-500) -->
+    <div class="w-full bg-black py-4 border-t border-slate-800 text-center text-xs text-white font-medium tracking-wide">
+      © {{ currentYear }} Hùng RC – Chia sẻ đam mê, kết nối sáng tạo!
     </div>
   </footer>
 </template>
 
 <script setup>
 import { ref } from 'vue';
+// Giả định file ảnh tồn tại theo đường dẫn cũ
+import img from "../assets/img/hung-che-tao.png";
 
-// Lấy năm hiện tại tự động cho phần Copyright
+// Tự động cập nhật năm hiện tại cho Copyright
 const currentYear = ref(new Date().getFullYear());
 
-// Cấu hình thông tin liên hệ của bạn tại đây
-const contactInfo = ref({
-  zaloPhone: '0381234567',        // Số điện thoại để kích hoạt link zalo.me
-  zaloDisplay: '038xxx5678',      // Chữ hiển thị trên nút Zalo giống ảnh mẫu
-  facebookUrl: 'https://fb.com/DIYModel', // Link dẫn tới Fanpage/Trang cá nhân
-  facebookDisplay: 'fb.com/DIYModel',     // Chữ hiển thị trên nút Facebook
-  decorImage: 'https://via.placeholder.com/400x250?text=DIY+Model' // Thay bằng link ảnh xe ben thật của bạn
-});
+// Xử lý nếu link ảnh bị lỗi không hiển thị được
+const handleImageError = (e) => {
+  // Thay đổi placeholder text sang HUNG RC cho phù hợp
+  e.target.src = "https://via.placeholder.com/400x250/1e293b/fff?text=HUNG+RC";
+};
 </script>
+
+<style scoped>
+/* Không cần CSS bổ sung vì đã dùng Tailwind */
+</style>

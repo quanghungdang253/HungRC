@@ -1,7 +1,6 @@
-
-
 <template>
-  <div class="w-full bg-[#f4f4f4] py-6 sm:py-12 px-3 sm:px-6 lg:px-12 font-sans flex flex-col gap-6 sm:gap-10 antialiased">
+  <!-- Đổi min-h-screen để đảm bảo nền xám phủ kín toàn bộ màn hình -->
+  <div class="w-full min-h-screen bg-[#f4f4f4] py-6 sm:py-12 px-3 sm:px-6 lg:px-12 font-sans flex flex-col gap-6 sm:gap-10 antialiased">
     
     <div 
       v-for="(category, catIndex) in categories" 
@@ -55,21 +54,19 @@
             target="_blank"
             class="flex-shrink-0 w-[44vw] sm:w-[210px] snap-start bg-white rounded-lg border border-gray-200 hover:border-amber-400 hover:shadow-md transition-all duration-200 flex flex-col justify-between group cursor-pointer no-underline overflow-hidden h-auto relative"
           >
-            <!-- Vùng hình ảnh và Nhãn (Badge) -->
+            <!-- Phần hình ảnh sản phẩm & Nhãn Tag Sống Động -->
             <div class="w-full aspect-square bg-white border-b border-gray-100 overflow-hidden relative flex-shrink-0">
-              <div class="absolute top-1.5 left-1.5 z-10 flex flex-col gap-1 items-start">
+              
+              <!-- Tag Sống Động (Tự động hiển thị dựa vào dữ liệu hoặc ngẫu nhiên) -->
+              <div v-if="item.badge" class="absolute top-2 left-2 z-10 flex flex-col gap-1">
                 <span 
-                  v-if="item.isHot" 
-                  class="bg-red-600 text-white text-[9px] sm:text-[10px] font-bold uppercase px-1.5 py-0.5 rounded shadow-sm tracking-wider animate-pulse"
+                  :class="[
+                    'text-[9px] sm:text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded shadow-sm text-white tracking-wider ',
+                    item.badgeType === 'danger' ? 'bg-red-500' : 
+                    item.badgeType === 'warning' ? 'bg-amber-500' : 'bg-gradient-to-r from-purple-600 to-pink-500'
+                  ]"
                 >
-                  Hot
-                </span>
-                
-                <span 
-                  v-if="item.isBestSeller" 
-                  class="bg-[#f1a817] text-white text-[9px] sm:text-[10px] font-bold uppercase px-1.5 py-0.5 rounded shadow-sm tracking-wider"
-                >
-                  Bán Chạy
+                  {{ item.badge }}
                 </span>
               </div>
 
@@ -81,13 +78,14 @@
               />
             </div>
 
+            <!-- Nội dung dưới hình -->
             <div class="p-2 sm:p-3 flex flex-col justify-between flex-grow bg-white">
-              <h3 class="text-sm sm:text-base font-semibold text-gray-800 text-left leading-normal whitespace-normal break-words">
+              <h3 class="text-sm sm:text-base font-semibold text-gray-800 text-left mb-3 group-hover:text-amber-600 leading-normal min-h-[3em] whitespace-normal break-words">
                 {{ item.name }}
               </h3>
-
-              <div class="w-full bg-amber-500 text-white font-semibold text-[11px] sm:text-xs py-2 px-2 rounded-md flex items-center justify-center space-x-1 shadow-sm transition-colors duration-200 group-hover:bg-amber-600 mt-auto">
-                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+              <!-- Nút mua hàng hiệu ứng bắt mắt hơn -->
+              <div class="w-full bg-amber-500 text-white font-semibold text-[11px] sm:text-xs py-2 px-2 rounded-md flex items-center justify-center space-x-1 shadow-sm transition-all duration-200 group-hover:bg-amber-600 group-hover:shadow mt-auto active:scale-[0.98]">
+                <svg class="w-3.5 h-3.5 transform group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm7 17H5V8h14v12z"/>
                 </svg>
                 <span>Mua ngay</span>
@@ -97,31 +95,14 @@
         </div>
 
       </div>
-
-      <!-- ĐOẠN ĐÃ CẬP NHẬT: Thêm div bọc ngoài để căn giữa nút bấm -->
- 
     </div>
-   <div class="w-full flex justify-center mt-5 sm:mt-7">
-  <!-- Thay href="" bằng to="" để Vue Router quản lý chuyển trang mà không bị load lại trang -->
-    <router-link 
-      to="/product" 
-      class="inline-flex items-center bg-amber-400 justify-center space-x-2 border-2 border-black text-black hover:bg-[#f1a817] hover:text-white active:scale-95 px-6 py-2 sm:px-8 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 shadow-sm no-underline group cursor-pointer"
-    >
-      <span>Xem thêm sản phẩm</span>
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-      </svg>
-    </router-link>
-</div>
 
   </div>
 </template>
 
-
-<!-- Phần script và style giữ nguyên như cũ -->
 <script setup>
-import dataCategories from '../data/list-products-data';
-import { ref, onBeforeUpdate } from 'vue'
+import data from './data/data';
+import { ref, onBeforeUpdate, onMounted } from 'vue' // Thêm onMounted từ vue
 
 const sliderRefs = ref([])
 
@@ -129,7 +110,15 @@ onBeforeUpdate(() => {
   sliderRefs.value = []
 })
 
-const categories = ref(dataCategories);
+// Khi component được gắn (render) thành công vào DOM, đưa trang lên top
+onMounted(() => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'instant' // Dùng 'instant' để nhảy thẳng lên đầu ngay lập tức khi load, hoặc 'smooth' nếu muốn cuộn mượt
+  })
+})
+
+const categories = ref(data);
 
 const scroll = (index, direction) => {
   const container = sliderRefs.value[index]
@@ -147,18 +136,18 @@ const scroll = (index, direction) => {
 
 <style scoped>
 .custom-scrollbar::-webkit-scrollbar {
-  height: 5px; 
+  height: 5px;
 }
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #ebeeef; 
+  background: #ebeeef;
   border-radius: 10px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #cbd5e1; 
+  background: #cbd5e1;
   border-radius: 10px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #a1a1aa; 
+  background: #a1a1aa;
 }
 .custom-scrollbar {
   scrollbar-width: thin;

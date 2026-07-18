@@ -1,6 +1,6 @@
 <template>
   <header class="bg-[#0b131a] relative z-50">
-    <div class="flex items-center justify-between border-b border-gray-800 text-white px-6 py-4 max-w-[1280px] mx-auto">
+    <div class="flex items-center justify-between border-b border-gray-800 text-white px-6 py-4 max-w-[1370px] mx-auto">
       
       <!-- Logo -->
       <RouterLink to="/" class="flex items-center space-x-3 select-none no-underline group">
@@ -12,7 +12,7 @@
         </div>
         <div>
           <h1 class="text-xl font-black tracking-wider text-white flex items-center">
-            HUNG <span class="text-[#f1a817] ml-1.5">DIY</span>
+            HÙNG <span class="text-[#f1a817] ml-1.5">RC</span>
           </h1>
           <p class="text-[10px] text-white font-medium tracking-wide">Lắp ráp • Chế tạo • Điều khiển</p>
         </div>
@@ -37,21 +37,17 @@
         </RouterLink>
       </nav>
 
-      <!-- Nút hành động và Hamburger Menu (Mobile) -->
+      <!-- Khung chức năng bên phải -->
       <div class="flex items-center space-x-3">
-        <!-- Nút Liên hệ (Desktop và Mobile đều thấy) -->
+        <!-- Nút Giới thiệu duy nhất hiển thị trên mọi thiết bị -->
         <button 
           @click="handleContactClick"
-          class="bg-[#f1a817] hover:bg-[#d99210] text-[#0b131a] font-bold text-xs sm:text-sm px-4 sm:px-5 py-2 sm:py-2.5 rounded-full flex items-center space-x-1.5 sm:space-x-2 transition-all duration-300 transform active:scale-95 shadow-md hover:shadow-yellow-600/20"
+          class="bg-[#f1a817] hover:bg-[#d99210] text-[#0b131a] font-bold text-xs sm:text-sm px-4 sm:px-5 py-2 sm:py-2.5 rounded-full flex items-center transition-all duration-300 transform active:scale-95 shadow-md hover:shadow-yellow-600/20"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/>
-          </svg>
-          <span class="hidden sm:inline">Liên hệ ngay</span>
-          <span class="inline sm:hidden">Liên hệ</span>
+          <span>Giới Thiệu</span>
         </button>
 
-        <!-- Nút Hamburger Mở Menu (Chỉ hiện trên di động) -->
+        <!-- Nút Hamburger Mở Menu (Chỉ hiện trên Mobile) -->
         <button 
           @click="toggleMobileMenu" 
           class="md:hidden p-2 text-gray-400 hover:text-white focus:outline-none transition-colors duration-200"
@@ -65,18 +61,17 @@
     </div>
 
     <!-- Menu Mobile Sidebar (Xổ từ phải sang trái) -->
-    <div v-if="isMobileMenuOpen" class="fixed inset-0 z-50 md:hidden flex justify-end">
-      <!-- Lớp nền mờ phía sau, bấm vào sẽ đóng menu -->
-      <div 
-        @click="closeMobileMenu" 
-        class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300"
-      ></div>
+    <transition name="slide-left" appear>
+      <div v-if="isMobileMenuOpen" class="fixed inset-0 z-50 md:hidden flex justify-end">
+        <!-- Lớp nền mờ phía sau -->
+        <div 
+          @click="closeMobileMenu" 
+          class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300"
+        ></div>
 
-      <!-- Khung chứa nội dung Menu chính -->
-      <transition name="slide-left" appear>
+        <!-- Khung chứa nội dung Menu chính -->
         <div class="relative w-[280px] max-w-full bg-[#0e1922] h-full shadow-2xl flex flex-col justify-between border-l border-gray-800 z-10">
           
-          <!-- Phần đầu của Sidebar (Gồm logo nhỏ và nút Close) -->
           <div>
             <div class="flex items-center justify-between px-6 py-5 border-b border-gray-800/60">
               <span class="text-xs font-bold uppercase tracking-widest text-[#f1a817]">Danh mục</span>
@@ -110,14 +105,14 @@
             </nav>
           </div>
 
-          <!-- Phần chân của Sidebar (Thông tin bản quyền hoặc liên kết nhanh phụ) -->
+          <!-- Phần chân của Sidebar -->
           <div class="p-6 border-t border-gray-800/60 text-center">
             <p class="text-[10px] text-gray-500 tracking-wider">© 2026 HUNG DIY. All rights reserved.</p>
           </div>
 
         </div>
-      </transition>
-    </div>
+      </div>
+    </transition>
   </header>
 </template>
 
@@ -139,21 +134,21 @@ const closeMobileMenu = () => {
   isMobileMenuOpen.value = false
 }
 
-// Cấu hình đường dẫn cho các mục
+// Cấu hình đường dẫn cho các mục danh mục điều hướng chính
 const menuItems = ref([
   { id: 'home', text: 'Trang chủ', path: '/' },
   { id: 'parts', text: 'Linh kiện', path: '/products' },
   { id: 'models', text: 'Mô hình', path: '/assembly-model' },
-  { id: 'contact', text: 'Liên hệ', path: '/contact' }
+  { id: 'product', text: 'Sản phẩm khác', path: '/product' },
 ])
 
-// Hàm chuyển trang an toàn
+// Hàm xử lý khi ấn vào nút Giới thiệu toàn cục
 const handleContactClick = () => {
-  closeMobileMenu() // Đóng menu mobile nếu đang mở
+  closeMobileMenu() 
   if (router) {
     router.push('/contact')
   } else {
-    window.location.href = '#/contact' // Cách dự phòng nếu router lỗi
+    window.location.href = '#/contact' 
   }
 }
 </script>
@@ -167,15 +162,14 @@ const handleContactClick = () => {
   to { transform: rotate(360deg); }
 }
 
-/* Hiệu ứng trượt từ phải sang trái (Slide Left) */
-.slide-left-enter-active {
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
+/* Hiệu ứng trượt từ phải sang trái mượt mà */
+.slide-left-enter-active,
 .slide-left-leave-active {
-  transition: transform 0.25s cubic-bezier(0.7, 0, 0.84, 0);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .slide-left-enter-from,
 .slide-left-leave-to {
-  transform: translateX(100%); /* Bắt đầu từ ngoài rìa phải màn hình */
+  transform: translateX(100%);
+  opacity: 0;
 }
 </style>
