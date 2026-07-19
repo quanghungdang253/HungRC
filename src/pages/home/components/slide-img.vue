@@ -27,25 +27,24 @@
   @touchend="touchEnd"
 >
 
-   <transition name="fade" mode="out-in">
+<div
+  class="slider-track"
+  :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
+>
   <a
-    :key="slides[currentIndex].src"
-    :href="slides[currentIndex].link"
+    v-for="(slide, index) in slides"
+    :key="index"
+    :href="slide.link"
     target="_blank"
     class="slider-link"
   >
     <img
-      :src="slides[currentIndex].src"
-      alt="Slide"
+      :src="slide.src"
+      :alt="slide.title"
       class="slider-image"
     />
-
-    <!-- Nút Mua ngay -->
-
-
-
   </a>
-</transition>
+</div>
 
     </div>
   </div>
@@ -264,15 +263,6 @@ onUnmounted(pauseSlider);
         Fade
   ========================== */
 
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity .35s ease;
-  }
-
-  .fade-enter-from,
-  .fade-leave-to {
-    opacity: 0;
-  }
 
   /* ==========================
         Tablet
@@ -436,15 +426,6 @@ onUnmounted(pauseSlider);
         Hiệu ứng Fade
 ========================== */
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity .35s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
 
 /* ==========================
         Tablet
@@ -506,5 +487,25 @@ onUnmounted(pauseSlider);
     padding: 7px 12px;
   }
 
+
+}
+
+  .slider-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform .4s ease;
+}
+
+.slider-link {
+  min-width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.slider-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* hoặc contain nếu muốn */
 }
 </style>
