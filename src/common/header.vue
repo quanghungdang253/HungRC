@@ -14,7 +14,7 @@
           <h1 class="text-xl font-black tracking-wider text-white flex items-center">
             HÙNG <span class="text-[#f1a817] ml-1.5">RC</span>
           </h1>
-          <p class="text-[10px] text-white font-medium tracking-wide">Lắp ráp • Chế tạo • Điều khiển</p>
+          <p class="text-[10px] text-white font-medium tracking-wide">Sản phẩm hữu ích mỗi ngày</p>
         </div>
       </RouterLink>
 
@@ -137,8 +137,6 @@ const closeMobileMenu = () => {
 // Cấu hình đường dẫn cho các mục danh mục điều hướng chính
 const menuItems = ref([
   { id: 'home', text: 'Trang chủ', path: '/' },
-  { id: 'parts', text: 'Linh kiện', path: '/products' },
-  { id: 'models', text: 'Mô hình', path: '/assembly-model' },
   { id: 'product', text: 'Sản phẩm khác', path: '/product' },
 ])
 

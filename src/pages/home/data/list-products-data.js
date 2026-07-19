@@ -19,12 +19,29 @@ import kemBam from "../../../assets/img-electronic-components/kem-bam.png";
 
 
 //====================================================================================================
-
+quatcamtaymini1.png
 import quatcamtaymini1 from "../../../assets/imgdogiadung/quatcamtaymini1.png";
 import denbanhoc from  "../../../assets/imgdogiadung/dendeban.png";
 import guong from  "../../../assets/imgdogiadung/guong.png";
 
 import hopdungmypham from  "../../../assets/imgdogiadung/hopdungmypham.png";
+import chuotpc from  "../../../assets/imgdientu/chuotpc.png";
+import banphim from  "../../../assets/imgdientu/banphim.png";
+import tainghe from  "../../../assets/imgdientu/tainghe.png";
+import sacduphong from  "../../../assets/imgdientu/sacduphong.png";
+import gaytusuong from  "../../../assets/imgdientu/gaytusuong.png";
+
+import oplungdienthoai from  "../../../assets/imgdientu/oplungdienthoai.png";
+import tuichongnuocdienthoai from  "../../../assets/imgdientu/tuichongnuocdienthoai.png";
+
+import  tainghecoday from  "../../../assets/imgdientu/tainghecoday.png";
+import  chuotkhongday from  "../../../assets/imgdientu/chuotkhongday.png";
+giadolaptop
+import  giadolaptop from  "../../../assets/imgdientu/giadolaptop.png";
+import  lotchuot from  "../../../assets/imgdientu/lotchuot.png";
+
+import  usb from  "../../../assets/imgdientu/usb.png";
+import  Webcam from  "../../../assets/imgdientu/webcam.png";
 
 //==============================================================================================================================================
 
@@ -39,6 +56,54 @@ import xe6 from "../../../assets/xedieukhientuxa/xe6.png";
 
 
 const dataCategories = [
+    {
+    title: 'Xe điều khiển từ xa (HOT) 🏆',
+    icon: '🚙',
+    products: [
+      { name: 'Xe địa hình điều khiển từ xa lớn cho trẻ em,Đồ chơi leo núi điện 2WD, đồ chơi điều khiển tốc độ cao', image: xe1, link: 'https://s.shopee.vn/4qE7Ftrz9u' },
+      { name: 'Xe điều khiển từ xa drift tốc độ cao tỉ lệ 1:24-GTR,2 cầu,pin sạc', image: xe2, link: 'https://s.shopee.vn/9fJN1PwwoS' },
+      { name: 'Máy xúc điều khiển từ xa', image: xe3 , link: 'https://s.shopee.vn/1VxfJa8F5o' },
+      { name: 'Xe ben - Điều khiển từ xa (RC), nâng hạ thùng ben, lốp cao su; xe công trình đồ chơi; MCT10&16', image: xe4, link: 'https://s.shopee.vn/30mT6wHUSl' },
+      { name: 'Xe tải chở hàng - Điều khiển từ xa (RC); có đèn pha trước, lốp cao su; XT01', image: xe5, link: 'https://s.shopee.vn/9zwDSFtUEj'},
+      { name: 'Xe đua F1 điều khiển từ xa với tốc độ cao, nhạc, đèn led và phun sương - Đồ chơi', image: xe6, link: 'https://s.shopee.vn/7VEsU32FKS'},
+]
+  },
+  {
+  title: 'Sản phẩm khác',
+  icon: '📦',
+  products: [
+    { name: 'Quạt mini cầm tay M2 5000mAh di động', image: quatcamtaymini1, link: 'https://s.shopee.vn/9UzxXo1478' },
+    { name: 'Đèn bàn học HY2266 Bóng LED Chống Cận Bảo Vệ Mắt', image: denbanhoc, link: 'https://s.shopee.vn/8AUZyb5DUW' },
+    { name: 'Gương soi toàn thân, gương di động soi siêu nét, hàng loại 1m5 x 40cm', image: guong, link: 'https://s.shopee.vn/4fuhpGzoNo' },
+    { name: 'Kệ đựng mỹ phẩm, hộp đựng mỹ phẩm phong cách Hàn Quốc nhiều ngăn HQ', image: hopdungmypham, link: 'https://s.shopee.vn/6VMM19oyqO' },
+    { name: 'Chuột gaming chuột máy tính có dây dễ sử dụng kết nối tất cả các máy G01', image: chuotpc, link: 'https://s.shopee.vn/5AqyVRG4uM' },
+    { name: 'Bàn Phím Có Dây Logitech K120 USB – Bàn Phím Văn Phòng Chính Hãng, Gõ Êm', image: banphim, link: 'https://s.shopee.vn/6ffmJHV9NJ' }
+  ]
+},
+{
+  title: 'Phụ kiện điện thoại',
+  icon: '📱',
+  products: [
+    { name: 'Tai nghe bluetooth M10 pro Pin Trâu 2500maH âm thanh trung thực', image: tainghe, link: 'https://s.shopee.vn/30mU21DUvH' },
+    { name: 'Pin Dự Phòng X279 20000mAh Sạc Nhanh – Mini Nhỏ Gọn', image: sacduphong, link: 'https://s.shopee.vn/4AyRQOCPGZ' },
+    { name: 'Gậy tự sướng selfie loại có led và không led PRAMI, 3 chân gấp gọn, xoay 360 độ', image: gaytusuong, link: 'https://s.shopee.vn/AUsUyWxyj8' },
+    { name: 'Ốp lưng trơn dẻo dành cho xsmax 6 plus 7 plus 8 plus 12 11 promax 12pro', image: oplungdienthoai, link: 'https://s.shopee.vn/4fui2ShHVQ' },
+    { name: 'Túi Đựng Điện Thoại 4 Lớp Khóa Kín Chống Nước Tuyệt Đối cảm ứng nhạy quay chụp hình dưới nước TĐT-4L', image: tuichongnuocdienthoai, link: 'https://s.shopee.vn/W595GYZcq' },
+    { name: 'Tai Nghe In Ear Chống Rối Super Bass', image: tainghecoday, link: 'https://s.shopee.vn/5AqyeUiEcR' }
+  ]
+},
+{
+  title: 'Phụ kiện máy tính & Laptop',
+  icon: '💻',
+  products: [
+    { name: 'Chuột không dây silent Logitech M220 siêu yên tĩnh giảm 90% tiếng ồn QUÀ TẶNG LÓT CHUỘT', image: chuotkhongday, link: 'https://s.shopee.vn/6VMMFmmx45' },
+    { name: 'Giá đỡ laptop bằng nhôm điều chỉnh được độ cao, gấp gọn, hỗ trợ tản nhiệt', image: giadolaptop, link: 'https://s.shopee.vn/1VxgInFAAK' },
+    { name: 'Gậy tự sướng selfie loại có led và không led PRAMI, 3 chân gấp gọn, xoay 360 độ', image: gaytusuong, link: 'https://s.shopee.vn/AUsUyWxyj8' },
+    { name: 'Lót Chuột Có Đệm Tay, Kê Tay Bàn Phím Chống Mõi Siêu Dễ Thương', image: lotchuot, link: 'https://s.shopee.vn/4AyRUnl2q1' },
+    { name: 'USB Pendrive 2TB 128GB 64GB 32GB 16GB 8GB 4GB 2GB 1GB ổ đĩa flash usb 2.0', image: usb, link: 'https://s.shopee.vn/2qT3uoIL3Z' },
+    { name: 'VOVOVA 1080p 720p HD Webcam Camera Webcam PC Có Mic, Cổng USB, dùng livestream, học online & gọi video', image: Webcam, link: 'https://s.shopee.vn/8fQqs4ep4H' }
+  ]
+},
   {
     title: 'Bộ lắp ghép & Linh kiện',
     icon: '⚙️',
@@ -53,6 +118,7 @@ const dataCategories = [
   
 ]
   },
+  
     {
     title: 'Dụng cụ & Vật tư',
     icon: '🛠️',
@@ -66,29 +132,8 @@ const dataCategories = [
       { name: 'Kìm Răng, Kềm Răng, Kềm Điện YCU', image: kemBam, link: 'https://s.shopee.vn/6pzBcLfOPE'},
 ]
   },
-    {
-    title: 'Xe điều khiển từ xa (HOT) 🏆',
-    icon: '🚙',
-    products: [
-      { name: 'Xe địa hình điều khiển từ xa lớn cho trẻ em,Đồ chơi leo núi điện 2WD, đồ chơi điều khiển tốc độ cao', image: xe1, link: 'https://s.shopee.vn/4qE7Ftrz9u' },
-      { name: 'Xe điều khiển từ xa drift tốc độ cao tỉ lệ 1:24-GTR,2 cầu,pin sạc', image: xe2, link: 'https://s.shopee.vn/9fJN1PwwoS' },
-      { name: 'Máy xúc điều khiển từ xa', image: xe3 , link: 'https://s.shopee.vn/1VxfJa8F5o' },
-      { name: 'Xe ben - Điều khiển từ xa (RC), nâng hạ thùng ben, lốp cao su; xe công trình đồ chơi; MCT10&16', image: xe4, link: 'https://s.shopee.vn/30mT6wHUSl' },
-      { name: 'Xe tải chở hàng - Điều khiển từ xa (RC); có đèn pha trước, lốp cao su; XT01', image: xe5, link: 'https://s.shopee.vn/9zwDSFtUEj'},
-      { name: 'Xe đua F1 điều khiển từ xa với tốc độ cao, nhạc, đèn led và phun sương - Đồ chơi', image: xe6, link: 'https://s.shopee.vn/7VEsU32FKS'},
-]
-  },
-      {
-    title: 'Sản phẩm khác',
-    icon: '📦',
-    products: [
-      { name: 'Quạt mini cầm tay M2 5000mAh di động', image: quatcamtaymini1, link: 'https://s.shopee.vn/9UzxXo1478' },
-      { name: 'Đèn bàn học HY2266 Bóng LED Chống Cận Bảo Vệ Mắt', image: denbanhoc, link: 'https://s.shopee.vn/8AUZyb5DUW' },
-      { name: 'Gương soi toàn thân, gương di động soi siêu nét, hàng loại 1 khổ 1m5 x 40cm', image: guong , link: 'https://s.shopee.vn/4fuhpGzoNo' },
-      { name: 'Kệ đựng mỹ phẩm , hộp đựng mỹ phẩm phong cách Hàn Quốc nhiều ngăn HQ', image: hopdungmypham, link: 'https://s.shopee.vn/6VMM19oyqO' },
-     
-]
-  }
+  
+   
 ];
 
 export default dataCategories;

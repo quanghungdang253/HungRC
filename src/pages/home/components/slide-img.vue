@@ -1,119 +1,510 @@
 <template>
-  <div class="max-w-[1280px] mx-auto px-4 py-8 relative group">
-    <h2 class="text-xl font-bold uppercase tracking-wider mb-6 text-gray-800 border-l-4 border-yellow-500 pl-3">
-      Mô hình nổi bật
-    </h2>
+  <div class="slider-component">
+    <!-- 1. Thanh Menu Tên Sản Phẩm -->
+<div
+  ref="tabsContainer"
+  class="product-tabs"
+>    
+<button
+  v-for="(item, index) in slides"
+  :key="index"
+  :ref="el => tabRefs[index] = el"
+  :class="['tab-btn', { active: currentIndex === index }]"
+  @click="currentIndex = index"
+>
 
-    <div class="relative overflow-hidden rounded-xl bg-gray-50 p-4 shadow-sm">
-      <div 
-        class="flex transition-transform duration-500 ease-out gap-4"
-        :style="{ transform: `translateX(calc(-${currentIndex * (100 / displayCount)}% - ${currentIndex * (16 / displayCount)}px))` }"
-      >
-        <div 
-          v-for="(item, index) in items" 
-          :key="item.id"
-          class="w-full flex-shrink-0 flex flex-col items-center justify-between bg-white rounded-lg border p-3 transition-all duration-300 hover:shadow-md"
-          :style="{ width: `calc((100% - ${(displayCount - 1) * 16}px) / ${displayCount})` }"
-          :class="item.active ? 'border-yellow-500 ring-1 ring-yellow-500' : 'border-gray-200'"
-        >
-          <div class="w-full h-40 flex items-center justify-center overflow-hidden mb-4">
-            <img 
-              :src="item.image" 
-              :alt="item.title" 
-              class="max-h-full max-w-full object-contain hover:scale-105 transition-transform duration-300"
-            />
-          </div>
-          <h3 class="text-xl font-semibold text-gray-700 text-center line-clamp-2">
-            {{ item.title }}
-          </h3>
-        </div>
-      </div>
+        {{ item.title }}
+      </button>
     </div>
 
-    <button 
-      @click="prevSlide"
-      class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-4 bg-white hover:bg-yellow-500 hover:text-white text-gray-700 p-3 rounded-full shadow-lg border border-gray-200 transition-all z-10 disabled:opacity-40 disabled:hover:bg-white disabled:hover:text-gray-700"
-      :disabled="currentIndex === 0"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-      </svg>
-    </button>
+    <!-- 2. Slider Ảnh -->
+  
+<div
+  class="slider-wrapper"
+  @mouseenter="pauseSlider"
+  @mouseleave="startSlider"
+  @touchstart="touchStart"
+  @touchend="touchEnd"
+>
 
-    <button 
-      @click="nextSlide"
-      class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-4 bg-white hover:bg-yellow-500 hover:text-white text-gray-700 p-3 rounded-full shadow-lg border border-gray-200 transition-all z-10 disabled:opacity-40 disabled:hover:bg-white disabled:hover:text-gray-700"
-      :disabled="currentIndex >= items.length - displayCount"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-      </svg>
-    </button>
+   <transition name="fade" mode="out-in">
+  <a
+    :key="slides[currentIndex].src"
+    :href="slides[currentIndex].link"
+    target="_blank"
+    class="slider-link"
+  >
+    <img
+      :src="slides[currentIndex].src"
+      alt="Slide"
+      class="slider-image"
+    />
 
-    <div class="flex justify-center items-center gap-2 mt-6">
-      <button
-        v-for="(_, index) in (items.length - displayCount + 1)"
-        :key="index"
-        @click="currentIndex = index"
-        class="h-2.5 rounded-full transition-all duration-300"
-        :class="currentIndex === index ? 'w-6 bg-yellow-500' : 'w-2.5 bg-gray-300 hover:bg-gray-400'"
-      ></button>
+    <!-- Nút Mua ngay -->
+
+
+
+  </a>
+</transition>
+
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue';
+import img1 from "../../../assets/slide-img/xe1.png";
+import img2 from "../../../assets/slide-img/xe2.png";
 
-// 1. Import trực tiếp các file ảnh cục bộ từ thư mục src/assets/images/
-import xeBenBanhXich from '../../../assets/img-products/xe-ben-banh-xich.jpg';
-import xeOto3V from '../../../assets/img-products/xe-oto.jpg';
-import xeBenDauKeo from '../../../assets/img-products/xe-ben-dau-keo.jpg';
-import xeCuuHo from '../../../assets/img-products/xe-cuu-ho.jpg';
-import xeDuaF1 from '../../../assets/img-products/xe-f1.jpg';
-import xeXangCap from '../../../assets/img-products/xe-xang-cap.jpg';
+import img3 from "../../../assets/slide-img/xe3.png";
 
-// Dữ liệu danh sách xe sử dụng biến ảnh đã import
-const items = ref([
-  { id: 1, title: 'Xe ben bánh xích 12V ', image: xeBenBanhXich, active: true },
-  { id: 2, title: 'Xe ô tô 3V', image: xeOto3V, active: false },
-  { id: 3, title: 'Xe ben đầu kéo', image: xeBenDauKeo, active: false },
-  { id: 4, title: 'Xe cần cẩu ', image: xeCuuHo, active: false },
-  { id: 5, title: 'Xe đua F1 ', image: xeDuaF1, active: false },
-  { id: 6, title: 'Xe xáng Cạp', image: xeXangCap, active: false },
+import img4 from "../../../assets/slide-img/xe4.png";
+
+import img5 from "../../../assets/slide-img/xe5.png";
+
+
+// Cấu trúc dữ liệu mới
+const slides = ref([
+  { title: "Xe địa hình điều khiển từ xa", src: img1, link: 'https://s.shopee.vn/4qE7Ftrz9u' },
+  { title: "Xe điều khiển từ xa drift tốc độ cao", src: img2, link: 'https://s.shopee.vn/9fJN1PwwoS' },
+  { title: "Máy xúc điều khiển từ xa", src: img3, link: 'https://s.shopee.vn/1VxfJa8F5o' },
+  { title: "Xe ben - Điều khiển từ xa (RC), nâng hạ thùng ben", src: img4, link: 'https://s.shopee.vn/30mT6wHUSl' },
+  { title: "Xe tải chở hàng - Điều khiển từ xa (RC)", src: img5, link: 'https://s.shopee.vn/9zwDSFtUEj' }
+
 ]);
-
-const currentIndex = ref(0);
-const displayCount = ref(4);
-
-const updateDisplayCount = () => {
-  if (window.innerWidth < 640) {
-    displayCount.value = 1;
-  } else if (window.innerWidth < 1024) {
-    displayCount.value = 2;
-  } else {
-    displayCount.value = 4;
-  }
+const touchStartX = ref(0);
+const touchEndX = ref(0);
+const prevSlide = () => {
+  currentIndex.value =
+    (currentIndex.value - 1 + slides.value.length) %
+    slides.value.length;
 };
+
+const touchStart = (e) => {
+  touchStartX.value = e.changedTouches[0].clientX;
+};
+
+const touchEnd = (e) => {
+  touchEndX.value = e.changedTouches[0].clientX;
+
+  const distance = touchStartX.value - touchEndX.value;
+
+  if (Math.abs(distance) < 50) return;
+
+  pauseSlider();
+
+  if (distance > 0) {
+    nextSlide(); // Vuốt sang trái
+  } else {
+    prevSlide(); // Vuốt sang phải
+  }
+
+  startSlider();
+};
+const currentIndex = ref(0);
+const tabsContainer = ref(null);
+const tabRefs = ref([]);
+let timer = null;
 
 const nextSlide = () => {
-  if (currentIndex.value < items.value.length - displayCount.value) {
-    currentIndex.value++;
+  currentIndex.value = (currentIndex.value + 1) % slides.value.length;
+};
+
+watch(currentIndex, async () => {
+  await nextTick();
+
+  const container = tabsContainer.value;
+  const btn = tabRefs.value[currentIndex.value];
+
+  if (!container || !btn) return;
+
+  const left =
+    btn.offsetLeft - (container.clientWidth - btn.clientWidth) / 2;
+
+  container.scrollTo({
+    left,
+    behavior: "smooth",
+  });
+});
+// Hàm điều khiển timer
+
+const startSlider = () => {
+  pauseSlider();
+  timer = setInterval(nextSlide, 5000);
+};
+
+const pauseSlider = () => {
+  if (timer) {
+    clearInterval(timer);
+    timer = null;
   }
 };
 
-const prevSlide = () => {
-  if (currentIndex.value > 0) {
-    currentIndex.value--;
-  }
-};
+onMounted(startSlider);
+onUnmounted(pauseSlider);
 
-onMounted(() => {
-  updateDisplayCount();
-  window.addEventListener('resize', updateDisplayCount);
-});
 
-onUnmounted(() => {
-  window.removeEventListener('resize', updateDisplayCount);
-});
 </script>
+
+  <style scoped>
+  .slider-component {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 12px 12px;
+  }
+
+  /* ==========================
+    Thanh tên sản phẩm
+  ========================== */
+
+  .product-tabs {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    gap: 10px;
+
+    padding: 10px;
+    margin-bottom: 15px;
+
+    background: #fff;
+    border-radius: 10px;
+
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+  }
+
+  /* Chrome */
+  .product-tabs::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .product-tabs::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 999px;
+  }
+
+  .product-tabs::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .tab-btn {
+    flex: 0 0 auto;
+
+    padding: 10px 18px;
+
+    border: none;
+    border-radius: 999px;
+
+    background: #f5f5f5;
+
+    cursor: pointer;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    color: #555;
+
+    transition: .25s;
+  }
+
+  .tab-btn:hover {
+    background: #ffe9e9;
+    color: red;
+  }
+
+  .tab-btn.active {
+    background: red;
+    color: white;
+  }
+
+  /* ==========================
+        Slider
+  ========================== */
+
+  .slider-wrapper {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 16/9;
+
+    max-height: 520px;
+
+    overflow: hidden;
+
+    border-radius: 14px;
+
+    background: #f2f2f2;
+  }
+
+.slider-link {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+  .slider-image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+
+    transition: transform .4s;
+  }
+
+  .slider-link:hover .slider-image {
+    transform: scale(1.03);
+  }
+
+  /* ==========================
+        Fade
+  ========================== */
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity .35s ease;
+  }
+
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+  }
+
+  /* ==========================
+        Tablet
+  ========================== */
+
+  @media (max-width: 992px) {
+
+    .slider-wrapper {
+      aspect-ratio: 16/10;
+    }
+
+  }
+
+  /* ==========================
+        Mobile
+  ========================== */
+
+  @media (max-width:768px){
+
+    .slider-component{
+        padding:0 8px;
+    }
+
+    .product-tabs{
+
+        gap:8px;
+
+        padding:8px;
+
+        margin-bottom:10px;
+    }
+
+    .tab-btn{
+
+        font-size:13px;
+
+        padding:8px 14px;
+    }
+
+    .slider-wrapper{
+
+        aspect-ratio:16/11;
+
+        border-radius:10px;
+    }
+
+  }
+  </style>
+
+
+<style scoped>
+.slider-component {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 12px;
+}
+
+/* ==========================
+   Thanh tên sản phẩm
+========================== */
+
+.product-tabs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+
+  padding: 10px;
+  margin-bottom: 15px;
+
+  background: #fff;
+  border-radius: 10px;
+
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+}
+
+.product-tabs::-webkit-scrollbar {
+  height: 6px;
+}
+
+.product-tabs::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 999px;
+}
+
+.product-tabs::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tab-btn {
+  flex-shrink: 0;
+
+  padding: 10px 18px;
+
+  border: none;
+  border-radius: 999px;
+
+  background: #f5f5f5;
+  color: #555;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: all .25s ease;
+}
+
+.tab-btn:hover {
+  background: #ffe8e8;
+  color: #e60000;
+}
+
+.tab-btn.active {
+  background: #e60000;
+  color: #fff;
+}
+
+/* ==========================
+        Slider
+========================== */
+
+.slider-wrapper {
+  position: relative;
+  width: 100%;
+
+  aspect-ratio: 3 / 1;
+
+  overflow: hidden;
+
+  border-radius: 14px;
+  background: #f2f2f2;
+}
+
+.slider-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.slider-image {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+
+  transition: transform .35s ease;
+}
+
+.slider-link:hover .slider-image {
+  transform: scale(1.03);
+}
+
+/* ==========================
+        Hiệu ứng Fade
+========================== */
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .35s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* ==========================
+        Tablet
+========================== */
+
+@media (max-width: 992px) {
+
+  .slider-component {
+    padding: 0 10px;
+  }
+
+  .slider-wrapper {
+    aspect-ratio: 3 / 1;
+  }
+
+  .tab-btn {
+    font-size: 13px;
+    padding: 9px 16px;
+  }
+
+}
+
+/* ==========================
+        Mobile
+========================== */
+
+@media (max-width: 768px) {
+
+  .slider-component {
+    padding: 8px 8px;
+  }
+
+  .product-tabs {
+    gap: 8px;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+
+  .tab-btn {
+    font-size: 12px;
+    padding: 8px 14px;
+  }
+
+  .slider-wrapper {
+    aspect-ratio: 3 / 1;
+    border-radius: 10px;
+  }
+
+}
+
+/* ==========================
+        Điện thoại nhỏ
+========================== */
+
+@media (max-width: 480px) {
+
+  .tab-btn {
+    font-size: 11px;
+    padding: 7px 12px;
+  }
+
+}
+</style>
