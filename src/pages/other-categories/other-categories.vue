@@ -27,192 +27,240 @@
       </div>
 
       <!-- Slider -->
-      <div class="relative group">
+<!-- Slider -->
+<div class="relative">
 
-        <!-- Left -->
-     
-<button
-  @click="scroll(catIndex,'left')"
-  class="flex absolute left-1 sm:left-2 top-1/2 -translate-y-1/2 z-20
-         w-8 h-8 sm:w-10 sm:h-10
-         rounded-full
-         bg-white/90 backdrop-blur
-         shadow-lg
-         items-center justify-center
-         text-gray-700
-         hover:bg-amber-400 hover:text-white
-         active:scale-95
-         transition-all duration-200"
->
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    class="w-4 h-4 sm:w-5 sm:h-5"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    stroke-width="2.5"
+  <!-- Left Button ngoài sản phẩm -->
+  <button
+    @click="scroll(catIndex,'left')"
+    class="
+      absolute
+      flex
+      -left-5
+      top-1/2
+      -translate-y-1/2
+      z-30
+
+      w-10 h-10
+
+      rounded-full
+      border border-gray-200
+      shadow-lg
+
+      items-center
+      justify-center
+
+      text-black
+
+      hover:bg-amber-400
+      hover:text-white
+
+      transition-all
+    "
   >
-    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
-  </svg>
-</button>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="w-5 h-5"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2.5"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round"
+      d="M15 19l-7-7 7-7"/>
+    </svg>
+
+  </button>
 
 
-        <!-- Right -->
-     
-<button
-  @click="scroll(catIndex,'right')"
-  class="flex absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 z-20
-         w-8 h-8 sm:w-10 sm:h-10
-         rounded-full
-         bg-white/90 backdrop-blur
-         shadow-lg
-         items-center justify-center
-         text-gray-700
-         hover:bg-amber-400 hover:text-white
-         active:scale-95
-         transition-all duration-200"
->
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    class="w-4 h-4 sm:w-5 sm:h-5"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    stroke-width="2.5"
+  <!-- Right Button ngoài sản phẩm -->
+  <button
+    @click="scroll(catIndex,'right')"
+    class="
+      absolute
+      flex
+      -right-5
+      top-1/2
+      -translate-y-1/2
+      z-30
+
+      w-10 h-10
+
+      rounded-full
+      border border-gray-200
+      shadow-lg
+
+      items-center
+      justify-center
+
+      text-black
+
+      hover:bg-amber-400
+      hover:text-white
+
+      transition-all
+    "
   >
-    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
-  </svg>
-</button>
+
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="w-5 h-5"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2.5"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round"
+      d="M9 5l7 7-7 7"/>
+    </svg>
+
+  </button>
 
 
-        <div
-          :ref="el => sliderRefs[catIndex] = el"
-          class="flex gap-4 overflow-x-auto pb-3 scroll-smooth snap-x snap-mandatory custom-scrollbar"
-        >
+
+  <!-- Mobile dùng nút nhỏ không che sản phẩm -->
+  <div
+    :ref="el => sliderRefs[catIndex] = el"
+    class="
+      flex
+      gap-4
+
+      overflow-x-auto
+
+      pb-3
+
+      scroll-smooth
+      snap-x
+      snap-mandatory
+
+      custom-scrollbar
+    "
+  >
 
           <!-- Product -->
 
-          <a
+         
 
-            v-for="(item,index) in category.products"
 
-            :key="index"
-
-            :href="item.link"
-
-            target="_blank"
-
-            class="group flex-shrink-0 w-[45vw] sm:w-[220px] lg:w-[230px] bg-white rounded-2xl border border-gray-200 hover:border-amber-400 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden snap-start"
-
-          >
-
-            <!-- Image -->
-
-            <div class="relative aspect-square bg-white">
-
-              <!-- Badge -->
-
-              <div class="absolute top-2 left-2 z-20 flex flex-col gap-1">
-
-                <span
-
-                  v-if="item.isHot"
-
-                  class="bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded"
-
-                >
-
-                  🔥 HOT
-
-                </span>
-
-                <span
-
-                  v-if="item.isBestSeller"
-
-                  class="bg-amber-500 text-white text-[10px] font-bold px-2 py-1 rounded"
-
-                >
-
-                  ⭐ Bán chạy
-
-                </span>
-
-                <span
-
-                  v-if="item.isNew"
-
-                  class="bg-green-600 text-white text-[10px] font-bold px-2 py-1 rounded"
-
-                >
-
-                  🆕 Mới
-
-                </span>
-
-              </div>
-
-              <!-- Favorite -->
-
-           <div
-  class="absolute top-0 left-0 z-20 bg-red-600 text-white text-[10px] sm:text-xs font-bold uppercase px-2.5 py-1 rounded-md shadow-md tracking-wide"
+<!-- Product -->
+<a
+  v-for="(item,index) in category.products"
+  :key="index"
+  :href="item.link"
+  target="_blank"
+  class="group
+         flex flex-col
+         flex-shrink-0
+         w-[45vw]
+         sm:w-[220px]
+         lg:w-[230px]
+       h-[430px] sm:h-[440px]
+         bg-white
+         rounded-2xl
+         border border-gray-200
+         hover:border-amber-400
+         hover:shadow-xl
+         hover:-translate-y-1
+         transition-all duration-300
+         overflow-hidden
+         snap-start"
 >
-  🔥 HOT
+
+  <!-- Ảnh -->
+<div class="relative h-[180px] sm:h-[220px] bg-white flex items-center justify-center">
+    <!-- Badge -->
+    <div class="absolute top-0 left-0 z-20 flex flex-col gap-1">
+
+      <span
+   
+        class="bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow"
+      >
+        🔥 HOT
+      </span>
+
+
+
+  
+
+    </div>
+
+    <img
+      :src="item.image"
+      :alt="item.name"
+      loading="lazy"
+      class="max-w-full max-h-full object-contain p-4 group-hover:scale-110 transition duration-500"
+    >
+
+  </div>
+
+  <!-- Thông tin -->
+  <div class="flex flex-col flex-1 p-3">
+
+    <!-- Tên -->
+
+<h3
+class="
+font-bold
+text-gray-800
+
+text-[14px]
+sm:text-[15px]
+
+leading-6
+
+h-[72px]
+
+overflow-hidden
+
+text-left
+"
+>
+{{ item.name }}
+</h3>
+
+    <!-- Đánh giá -->
+    <div class="flex items-center mt-2">
+      <span class="text-yellow-400 text-lg tracking-wide">
+        ★★★★★
+      </span>
+    </div>
+
+    <!-- Nút -->
+<div
+class="
+mt-auto
+
+h-[42px]
+
+bg-gradient-to-r
+from-amber-400
+to-orange-500
+
+text-white
+
+font-bold
+
+rounded-lg
+
+flex
+justify-center
+items-center
+
+gap-2
+
+shadow-md
+
+transition-all
+"
+>
+🛒
+<span>Mua ngay</span>
 </div>
 
-              <img
+  </div>
 
-                :src="item.image"
+</a>
 
-                :alt="item.name"
-
-                loading="lazy"
-
-                class="w-full h-full object-contain p-3 group-hover:scale-110 transition duration-500"
-
-              >
-
-            </div>
-
-            <!-- Info -->
-
-            <div class="p-3 flex flex-col h-full">
-
-              <h3
-
-                class="font-semibold text-gray-800 text-sm sm:text-[15px] leading-6 line-clamp-2 min-h-[48px]"
-
-              >
-
-                {{ item.name }}
-
-              </h3>
-
-              <!-- Rating -->
-
-            <div class="flex items-center mt-2">
-  <span class="text-yellow-400 text-xl">
-    ★★★★★
-  </span>
-</div>
-
-              <!-- Button -->
-
-              <div
-
-                class="mt-4 bg-gradient-to-r from-amber-400 to-orange-500 text-white rounded-lg py-2.5 font-bold flex justify-center items-center gap-2 shadow group-hover:shadow-lg transition"
-
-              >
-
-                🛒
-
-                <span>Mua ngay</span>
-
-              </div>
-
-            </div>
-
-          </a>
 
         </div>
 
